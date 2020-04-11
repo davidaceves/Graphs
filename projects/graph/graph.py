@@ -83,7 +83,7 @@ class Graph:
         This should be done using recursion.
         """
         visited.add(vertex)
-
+        
         edges = self.get_neighbors(vertex)
 
         if len(edges) == 0:
@@ -91,9 +91,9 @@ class Graph:
         else: 
             for edge in edges:
                 if edge not in visited:
-                    self.dfs_recursive(edge, visited)
+                    self.dft_recursive(edge, visited)
                 else:
-                    return
+                    return visited
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -140,7 +140,7 @@ class Graph:
         while stack.size() > 0:
             curr_path = stack.pop()
             curr_node = curr_path[-1]
-
+            
             if curr_node == destination_vertex:
                 return curr_path
             else: 
@@ -153,7 +153,7 @@ class Graph:
                         path_copy.append(edge)
                         stack.push(path_copy)
 
-    def dfs_recursive(self, vertex, destination_vertex, visited=set()):
+    def dfs_recursive(self, vertex, destination_vertex, visited=set(), path=[]):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -161,18 +161,37 @@ class Graph:
 
         This should be done using recursion.
         """
+     
         visited.add(vertex)
+        curr_path = list(path)
+        curr_path.append(vertex)
 
-        edges = self.get_neighbors(vertex)
+        neighbors = self.get_neighbors(vertex)
 
-        if len(edges) == 0:
-            return 
-        else:
-            for edge in edges:
-                if edge not in visited:
-                    self.dfs_recursive(edge, destination_vertex, visited)
-                elif edge == destination_vertex:
-                    return visited
+        if vertex == destination_vertex:
+            return curr_path
+
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                new_path = self.dfs_recursive(neighbor, destination_vertex, visited, curr_path)
+               
+                if new_path:
+                    return new_path
+           
+                   
+                       
+            
+        
+    
+                
+            
+            
+        
+
+                
+                    
+                    
+                
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
