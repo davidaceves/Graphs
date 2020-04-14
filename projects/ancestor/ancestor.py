@@ -45,7 +45,6 @@ def earliest_ancestor(ancestors, starting_node):
         curr_node = path[-1]
         
         if (len(path) >= longest_path and curr_node < earliest_ancestor) or len(path) > longest_path:
-            print(curr_node, earliest_ancestor)
             longest_path = len(path)
             earliest_ancestor = curr_node
         
@@ -59,8 +58,6 @@ def earliest_ancestor(ancestors, starting_node):
             
     return earliest_ancestor
 
-test = earliest_ancestor(test_ancestors, 8)
 
-print(test)
 
 
