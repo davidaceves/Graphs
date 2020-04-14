@@ -24,13 +24,39 @@ class Graph:
 test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
 def earliest_ancestor(ancestors, starting_node):
-   graph = Graph()
+    graph = Graph()
 
-   for pair in ancestors:
-       parent = pair[0]
-       child = pair[1]
+    queue = Queue()
+    queue.enqueue([starting_node])
+   
+    for pair in ancestors:
+        parent = pair[0]
+        child = pair[1]
 
-       graph.add_vertex(parent)
-       graph.add_vertex(child)
-       graph.add_edge(parent, child)
+        graph.add_vertex(parent)
+        graph.add_vertex(child)
+        graph.add_edge(child, parent)
 
+    longest_path = 1
+    earliest_ancestor = -1
+
+    while queue.size() > 0:
+        path = queue.dequeue()
+        curr_node = path[-1]
+
+        if (len(path) >= longest_path and curr_node < earliest_ancestor) or len(path) > longest_path:
+            longest_path = len(path)
+            earliest_ancestor = curr_node
+
+        neighbors = graph.vertices[curr_node]
+
+        for ancestor in neighbors:
+            path_copy = list(path)
+            path_copy.append(ancestor)
+            queue.enqueue(path_copy)
+            
+    return earliest_ancestor
+
+test = earliest_ancestor(test_ancestors, 5)
+
+print(test)
