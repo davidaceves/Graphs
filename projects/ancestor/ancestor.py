@@ -43,10 +43,12 @@ def earliest_ancestor(ancestors, starting_node):
     while queue.size() > 0:
         path = queue.dequeue()
         curr_node = path[-1]
-
+        
         if (len(path) >= longest_path and curr_node < earliest_ancestor) or len(path) > longest_path:
+            print(curr_node, earliest_ancestor)
             longest_path = len(path)
             earliest_ancestor = curr_node
+        
 
         neighbors = graph.vertices[curr_node]
 
@@ -57,6 +59,8 @@ def earliest_ancestor(ancestors, starting_node):
             
     return earliest_ancestor
 
-test = earliest_ancestor(test_ancestors, 5)
+test = earliest_ancestor(test_ancestors, 8)
 
 print(test)
+
+
