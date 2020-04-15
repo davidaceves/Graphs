@@ -175,7 +175,7 @@ class Graph:
             if neighbor not in visited:
                 new_path = self.dfs_recursive(neighbor, destination_vertex, visited, curr_path)
                
-                if new_path:
+                if new_path is not None:
                     return new_path
            
                    
