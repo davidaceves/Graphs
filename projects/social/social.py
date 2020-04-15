@@ -51,11 +51,12 @@ class SocialGraph:
         # Add users
         for user in range(num_users):
             self.add_user(user)
-        
+      
         # Create friendships
         friendships = []
-        for user in range(1, self.last_id + 1):
-            for friend in range(user + 1, num_users):
+      
+        for user in range(1, self.last_id):
+            for friend in range(user + 1, self.last_id + 1):
                 friendships.append((user, friend))
         
         random.shuffle(friendships)
@@ -77,8 +78,24 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         queue = Queue()
+
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        queue.enqueue([user_id])
+
+        while queue.size() > 0:
+            curr_path = queue.dequeue()
+            curr_node = curr_path[-1]
+
+            if curr_node not in visited.keys(): 
+                visited[curr_node] = curr_path
+                edges = self.friendships[curr_node]
+            
+                for edge in edges:
+                    path_copy = list(curr_path)
+                    path_copy.append(edge)
+                    queue.enqueue(path_copy)
         return visited
 
 
